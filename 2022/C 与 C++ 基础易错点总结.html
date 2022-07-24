@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kecho">
+    
+    <title>
+        
+            C 与 C++ 基础易错点总结 |
+        
+        Kecho&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"blog.kecho.top","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/head.jpg","favicon":"/images/favicon.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Kecho's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kecho&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/changelog"
+                            >
+                                日志
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item rss">
+                            <a 
+                               href="/atom.xml"
+                               target="_blank"
+                            >
+                                <i class="fas fa-rss"></i>
+                            </a>
+                        </li>
+                    
+                    <li class="menu-item tool-dark-light-toggle">
+                        <i class="fas fa-moon"></i>
+                    </li>
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item">
+                        <a class=""
+                           href="/atom.xml"
+                           target="_blank"
+                        >
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/changelog">日志</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">C 与 C++ 基础易错点总结</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/head.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kecho</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-04-30 17:05:48</span>
+        <span class="mobile">2022-04-30 17:05</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%9F%BA%E7%A1%80/">基础</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/C/">C</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>8 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>本文参考《算法笔记》记录一些个人认为容易出错和容易忘记的知识点。</p>
+<span id="more"></span>
+
+<h2 id="一、输入与输出"><a href="#一、输入与输出" class="headerlink" title="一、输入与输出"></a>一、输入与输出</h2><ul>
+<li>C 中的 <code>scanf</code> 和 <code>printf</code> 比 C++ 中的 <code>cin</code> 和 <code>cout</code> 效率高，如果发现超时可改用 <code>scanf</code> 和 <code>printf</code> ；</li>
+<li><code>scanf</code> 输入字符串（<code>char 数组</code>）不用加 <code>&amp;</code> ；</li>
+<li><code>scanf</code> 中对于 <code>double</code> 型变量的格式符为 <code>%lf</code>，而 <code>printf</code> 为 <code>%f</code> 。常见格式控制符如下：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">格式符</th>
+<th align="left">举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>int</code></td>
+<td align="left"><code>%d</code></td>
+<td align="left"><code>scanf(&quot;%d&quot;, &amp;n);</code> 和 <code>printf(&quot;%d&quot;, n);</code></td>
+</tr>
+<tr>
+<td align="left"><code>long long</code></td>
+<td align="left"><code>%lld</code></td>
+<td align="left"><code>scanf(&quot;%lld&quot;, &amp;n);</code> 和 <code>printf(&quot;%lld&quot;, n);</code></td>
+</tr>
+<tr>
+<td align="left"><code>float</code></td>
+<td align="left"><code>%f</code></td>
+<td align="left"><code>scanf(&quot;%f&quot;, &amp;f);</code> 和 <code>printf(&quot;%f&quot;, f);</code></td>
+</tr>
+<tr>
+<td align="left"><code>double</code></td>
+<td align="left"><code>%lf</code>（<code>printf</code>中为 <code>%f</code>）</td>
+<td align="left"><code>scanf(&quot;%lf&quot;, &amp;d);</code> 和 <code>printf(&quot;%f&quot;, d);</code></td>
+</tr>
+<tr>
+<td align="left"><code>char</code></td>
+<td align="left"><code>%c</code></td>
+<td align="left"><code>scanf(&quot;%c&quot;, &amp;c);</code> 和 <code>printf(&quot;%c&quot;, c);</code></td>
+</tr>
+<tr>
+<td align="left">字符串（<code>char 数组</code>）</td>
+<td align="left"><code>%s</code></td>
+<td align="left"><code>scanf(&quot;%s&quot;, str);</code> 和 <code>printf(&quot;%s&quot;, str);</code></td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td align="left"><code>%md</code></td>
+<td align="left">不满 m 位右对齐输出，高位补空格，满则原样输出</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td align="left"><code>%0md</code></td>
+<td align="left">不满 m 位右对齐输出，高位补 0 ，满则原样输出</td>
+</tr>
+<tr>
+<td align="left"><code>float</code> &#x2F; <code>double</code></td>
+<td align="left"><code>%.mf</code></td>
+<td align="left">保留 m 位小数输出（采用“四舍六入五成双”规则）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>除 <code>%c</code> 外 <code>scanf</code> 对其它格式符（包含 <code>%s</code>）以空白符（空格、换行、Tab等）为结束标志；</li>
+<li><code>getchar()</code> 能读入一个字符，能识别换行符，用法：<code>char c = getchar(); putchar( c );</code> ；</li>
+<li><code>gets(str)</code> 能读入一行，以换行符为结束标志，用法：<code>char str[10]; gets(str); puts(str);</code> ；</li>
+<li>要读入带有空格的字符串可使用 <code>scanf</code> 或 <code>getchar()</code> 循环读入字符（要注意排除换行符），或者直接用 <code>gets(str)</code> ；</li>
+<li><code>sscanf(str,&quot;%d&quot;,n)</code> 表示把字符数组 str 中的内容以 “%d” 的格式写入到 n 中（从左至右），<code>sprintf(str,&quot;%d&quot;,n)</code> 表示把 n 以 “%d” 的格式写入到 str 字符数组中（从右至左）。可用来进行类型转换。 </li>
+<li>C++ 中读入一整行：<ul>
+<li>字符数组：<code>char str[100]; cin.getLine(str,101);</code></li>
+<li>字符串：<code>string str; getLine(cin,str);</code></li>
+</ul>
+</li>
+<li>cin 或 cout 耗时长，可在之前加上 <code>std::ios::sync_with_stdio(false);</code></li>
+<li>cout 可通过 <code>#include &lt;iomanip&gt;</code> 控制输出格式，如函数 <code>setiosflags()</code>、<code>setprecision()</code>等。</li>
+</ul>
+<h2 id="二、变量与常量"><a href="#二、变量与常量" class="headerlink" title="二、变量与常量"></a>二、变量与常量</h2><ul>
+<li>对于整数型，题目要求 10^9 以内（或占32 位）用 <code>int</code> 类型；10^18 以内（或占64 位）使用 <code>long long</code> 型；</li>
+<li>对于浮点型，尽量只使用 <code>double</code> （ 注：<code>float</code> 占32 位，精度 6-7 位；<code>double</code> 占 64 位，精度 15-16 位）；</li>
+<li>小写字母的 ASCII 码比大写字母的大 32（不用记住对应的 ASCII 码，只要记住 <code>小 &gt; 大 = 32</code>）；</li>
+<li>零 –&gt; false，非零整数（包括负整数） –&gt; true，false –&gt; 0，true –&gt; 1 ；</li>
+<li><code>const</code> 用来定义常量，<code>宏定义</code>除了定义常量，也可以定义任何语句或片段（注意宏定义的原封不动替换陷阱），如 <code>#define ADD(a,b) ((a)+(b))</code> 。</li>
+</ul>
+<h2 id="三、运算符与循环"><a href="#三、运算符与循环" class="headerlink" title="三、运算符与循环"></a>三、运算符与循环</h2><ul>
+<li><code>3 / 2 == 1</code> 对比 <code>3 / 2.0 == 1.5</code> ；</li>
+<li><code>i++</code> 和 <code>++i</code> 的差别；</li>
+<li><code>条件A || 条件B</code> 按顺序判断，有一个为 <code>true</code> 就直接返回 <code>true</code>，后面的就不判断；<code>&amp;&amp;</code> 同理，有一个为 <code>false</code> 就直接返回 <code>false</code> ；</li>
+<li>常用 <code>(1 &lt;&lt; 30) - 1</code> 表示常量无穷大（<code>const int INF = (1 &lt;&lt; 30) - 1</code>），或者用十六进制 <code>0x3fffffff</code> 表示；</li>
+<li>C 语言中不允许在 <code>for</code> 循环结构的表达式 1 中定义变量，而 C++ 可以（如 <code>for(int i = 0; i &lt; 10 ; i++)</code>）。</li>
+</ul>
+<h2 id="四、数组"><a href="#四、数组" class="headerlink" title="四、数组"></a>四、数组</h2><ul>
+<li>数组大小只能是常量，不能是变量；</li>
+<li>数组的初值（不同编译器不同）：<ul>
+<li>1）<code>int a[10];</code> 所有值都为随机值（大部分）或 0，而 <code>int a;</code> 单个变量未初始化一般为 0</li>
+<li>2）<code>int a[10] = &#123;0&#125;; //或&#123;&#125;</code> 所有值都为 0</li>
+<li>3）<code>int a[10] = &#123;1,2,3&#125;;</code> 未被赋初值的为随机值或 0（大部分）</li>
+</ul>
+</li>
+<li>如果数组大小较大（大概 10^6 级别），则需要将其定义在主函数外面，否则程序会异常退出。原因是函数内部申请的局部变量来自系统栈，允许申请的空间较小；而函数外申请的全局变量来自静态存储区，允许申请的空间较大；</li>
+<li><strong>字符数组</strong>末尾都会有一个空字符 <code>\0</code> ，这是 <code>puts()</code> 或 <code>printf()</code> 输出字符串时用来识别结束标志的，如果没有它则会输出一堆乱码。<code>scanf</code> 的 <code>%s</code> 格式和 <code>gets()</code> 函数会自动在字符数组末尾加上 <code>\0</code>，而 <code>getchar()</code> 则需要手动添加。字符数组的长度要比实际存储字符串长度多 1 位。</li>
+</ul>
+<h2 id="五、指针、引用、函数"><a href="#五、指针、引用、函数" class="headerlink" title="五、指针、引用、函数"></a>五、指针、引用、函数</h2><ul>
+<li>指针是一个 unsigned 的函数，存放的是数据地址，记 <code>p = &amp;a;</code>，指针未初始化则指向随机地址；</li>
+<li><code>int* p1, p2;</code> 中 <code>p1</code> 是 <code>int*</code> 型，而 <code>p2</code> 是 <code>int</code> 型，要想定义两个指针应该用 <code>int *p1, *p2</code> ；</li>
+<li>两个 int 型指针相减，得到的是两个指针之间差了几个 int，即以 4B 为单位。int 型指针加 1 同理，也是以 4B 为单位。</li>
+<li>数组可作为形式参数，但不可作为返回值。作为形式参数时数组的第一维不用写长度（二维数组的第二维要写长度），实参无论一维还是二维都只要填数组名，在函数中对数组元素的修改等同于对原数组元素的修改；</li>
+<li>指针作为参数调用：<code>swap(&amp;a,&amp;b);</code></li>
+<li>引用作为参数调用（<strong>常量不可使用引用</strong>，C++ 才支持引用）：<code>swap(a,b);</code></li>
+</ul>
+<h2 id="六、结构体"><a href="#六、结构体" class="headerlink" title="六、结构体"></a>六、结构体</h2><ul>
+<li>结构体中成员变量不能有自己本身类型的变量，但可以有指向自己本身类型的指针变量；</li>
+<li>C++ 中结构体的定义（ C 中 <code>struct person</code> 是一个整体，而 C++ 中可省略 <code>struct</code>）<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">person</span>&#123;</span><br><span class="line">  <span class="type">int</span> id;</span><br><span class="line">  person* p;</span><br><span class="line">&#125;; <span class="comment">//结构体类型</span></span><br><span class="line">person a,*q;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">personA</span>&#123;</span><br><span class="line">  <span class="type">int</span> id;</span><br><span class="line">  personA* p; <span class="comment">//此时还不能用别名 person* p;</span></span><br><span class="line">&#125;person; <span class="comment">//结构体类型别名</span></span><br><span class="line">person a,*q;</span><br><span class="line"><span class="comment">//personA a,*q;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第三种</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">person</span>&#123;</span><br><span class="line">  <span class="type">int</span> id;</span><br><span class="line">  person* p;</span><br><span class="line">&#125;a,*q; <span class="comment">//结构体变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//访问变量</span></span><br><span class="line">q -&gt; id = <span class="number">1</span>; </span><br><span class="line">(*q).id = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></li>
+<li>C 中结构体的定义<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在C中会报错</span></span><br><span class="line"><span class="comment">/*struct person&#123;</span></span><br><span class="line"><span class="comment">  int id;</span></span><br><span class="line"><span class="comment">&#125;; </span></span><br><span class="line"><span class="comment">struct person a;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一种</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">personA</span>&#123;</span><br><span class="line">  <span class="type">int</span> id;</span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">personA</span>* p; <span class="comment">//此时还不能用别名 person* p;</span></span><br><span class="line">&#125;person; <span class="comment">//结构体类型别名</span></span><br><span class="line">person a,*q;</span><br><span class="line"><span class="comment">//struct personA a,b,*q;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">person</span>&#123;</span><br><span class="line">  <span class="type">int</span> id;</span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">person</span>* p; <span class="comment">//对比 C++ 要多个 struct 关键字</span></span><br><span class="line">&#125;a,*q; <span class="comment">//结构体变量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="七、常见函数"><a href="#七、常见函数" class="headerlink" title="七、常见函数"></a>七、常见函数</h2></li>
+<li>字符数组相关函数<br>要包含头文件 <code>#include &quot;string.h&quot;</code> （ C++ 为 <code>#inlude &lt;cstring&gt;</code> ）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>strlen(字符数组)</code></td>
+<td align="left">返回第一个 <code>\0</code> 之前的字符个数</td>
+</tr>
+<tr>
+<td align="left"><code>strcmp(字符数组1, 字符数组2)</code></td>
+<td align="left">比较两个字符串，小于返回负整数，等于返回 0，大于返回正整数</td>
+</tr>
+<tr>
+<td align="left"><code>strcpy(字符数组1, 字符数组2)</code></td>
+<td align="left">把字符数组 2 复制给字符数组 1</td>
+</tr>
+<tr>
+<td align="left"><code>strcat(字符数组1, 字符数组2)</code></td>
+<td align="left">把字符数组 2 接到字符数组 1 后面</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Math 函数<br>要包含头文件 <code>#include &quot;math.h&quot;</code> （ C++ 为 <code>#inlude &lt;cmath&gt;</code> ）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>fabs(double x)</code></td>
+<td align="left">求绝对值</td>
+</tr>
+<tr>
+<td align="left"><code>floor(double x)</code></td>
+<td align="left">向下取整</td>
+</tr>
+<tr>
+<td align="left"><code>ceil(double x)</code></td>
+<td align="left">向上取整</td>
+</tr>
+<tr>
+<td align="left"><code>pow(double x, double y)</code></td>
+<td align="left">求 x^y</td>
+</tr>
+<tr>
+<td align="left"><code>sqrt(double x)</code></td>
+<td align="left">求算术平方根</td>
+</tr>
+<tr>
+<td align="left"><code>log(double x)</code></td>
+<td align="left">以 e 为底，要指定底数可用换底公式（<code>loga(b)=loge(b)/loge(a)</code>）</td>
+</tr>
+<tr>
+<td align="left"><code>round(double x)</code></td>
+<td align="left">四舍五入取整</td>
+</tr>
+<tr>
+<td align="left"><code>sin、cos、tan(double x)</code></td>
+<td align="left">三角函数</td>
+</tr>
+<tr>
+<td align="left"><code>asin、acos、atan(double x)</code></td>
+<td align="left">反三角函数</td>
+</tr>
+</tbody></table>
+<ul>
+<li>memset 函数</li>
+</ul>
+<p>作用：给数组中每个元素赋相同的值<br>格式：<code>memset( 数组名, 值, sizeof( 数组名 ))</code> （多维数组也只要数组名）</p>
+<p>要包含头文件 <code>#include &quot;string.h&quot;</code> （ C++ 为 <code>#inlude &lt;cstring&gt;</code> ）<br>只建议初学者使用 memset 赋 <code>0</code> 或 <code>-1</code>，因为 memset 使用按字节赋值，即对每个字节赋同样的值，而 0 的二进制补码全为 0，-1 的二进制补码全为 1，不容易弄错。如果要对数组赋其它数字（如 1），请使用 <code>fill 函数</code>（但 memset 的执行速度快）</p>
+<h2 id="八、浮点数的比较"><a href="#八、浮点数的比较" class="headerlink" title="八、浮点数的比较"></a>八、浮点数的比较</h2><p>浮点数在计算机中存储不总是精确的，有时不好使用 &#x3D;&#x3D; 来判断是否相等，在一定误差范围内可视为相等。此处误差取 10^-8</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Equ(a,b) ((fabs((a)-(b)))&lt;(eps))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> More(a,b) (((a)-(b))&gt;(eps))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Less(a,b) (((a)-(b))&lt;(-eps))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MoreEqu(a,b) (((a)-(b))&gt;(-eps))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LessEqu(a,b) (((a)-(b))&lt;(eps))</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：C 与 C++ 基础易错点总结</li>
+        <li>本文作者：kecho</li>
+        <li>创建时间：2022-04-30 17:05:48</li>
+        <li>
+            本文链接：https://blog.kecho.top/2022/C 与 C++ 基础易错点总结.html
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/C/">#C</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/C/">#C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%90%AFFCM%E6%8E%A8%E9%80%81.html"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">微信开启FCM推送</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D.html"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">正则表达式简单介绍</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'JGImupxMFgaFMAjIRuEiiVyG-gzGzoHsz',
+                    appKey: 'tafPcYRTuea2ljkH2y47P6TA',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '说点什么吧！',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kecho';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kecho</a>
+        </div>
+        
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">赣ICP备20004569号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+        <li class="tool-scroll-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="nav-text">一、输入与输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-text">二、变量与常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E5%BE%AA%E7%8E%AF"><span class="nav-text">三、运算符与循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%95%B0%E7%BB%84"><span class="nav-text">四、数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%8C%87%E9%92%88%E3%80%81%E5%BC%95%E7%94%A8%E3%80%81%E5%87%BD%E6%95%B0"><span class="nav-text">五、指针、引用、函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">六、结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="nav-text">七、常见函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-text">八、浮点数的比较</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+<script>
+    var pushLink ="https://api.day.app/WJuMbq4XeNYVeawyRdzdeM/";
+    var siteName = "Kecho's Blog";
+    var valineButton=document.getElementsByClassName("vsubmit vbtn")[0];
+    var title = siteName + "上又有新评论啦~!";
+  
+    function send_valine() {
+        //获取元素信息
+        var pagename = document.title.match(/(.*)( \| Kecho's Blog)/)[1];
+        var vnick = document.getElementsByClassName("vnick vinput")[0].value;
+        var status = document.getElementsByClassName("vcol vcol-60 status-bar")[0].innerText;
+        var veditor = document.getElementsByClassName("veditor vinput")[0].value;
+        if(veditor !== "" && !status.includes("操作频繁") && vnick !== "kecho"){
+            var body ="【" + vnick + "】在文章【"+ pagename +"】中说到：\n\n" + veditor;
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open("GET",pushLink + title + "/" + encodeURIComponent(body),true);
+            httpRequest.send();
+        }
+    }
+  
+    document.body.addEventListener('click', function(e) {
+        if(e.target.className.indexOf('vsubmit') === -1) {
+            return;
+        }
+        send_valine();
+  })
+  </script>
+
+</body>
+</html>
