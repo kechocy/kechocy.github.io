@@ -123,7 +123,7 @@ keep-tablet()
   counter-reset: h3Counter;
 }
 .markdown-body h2:before {
-  content: counter(h2Counter, cjk-ideographic) '\3001';
+  content: counter(h2Counter, decimal) '\3001';
 }
 .markdown-body h3 {
   counter-increment: h3Counter;

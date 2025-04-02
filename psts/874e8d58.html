@@ -216,8 +216,8 @@
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
         <span>更新于 2025-04-02</span>
-        <!-- <span class="pc">2025-04-02 13:50:09</span>
-        <span class="mobile">2025-04-02 13:50</span> -->
+        <!-- <span class="pc">2025-03-25 13:01:18</span>
+        <span class="mobile">2025-03-25 13:01</span> -->
     </span>
     
         <span class="article-categories article-meta-item">
@@ -252,7 +252,7 @@
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>25 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>26 分钟</span>
         </span>
     
     
@@ -264,7 +264,12 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="Spring-Framework"><a href="#Spring-Framework" class="headerlink" title="Spring Framework"></a>Spring Framework</h1><p>Spring 两大核心机制</p>
+                <p>Spring Framework 是一个功能强大的 Java 应用程序框架，旨在提供高效且可扩展的开发环境。它结合了轻量级的容器和依赖注入功能，提供了一种使用 POJO 进行容器配置和面向切面的编程的简单方法，以及一组用于 AOP 的模块。</p>
+<span id="more"></span>
+
+
+
+<p>Spring 两大核心机制</p>
 <ul>
 <li>IoC（控制反转）：工厂模式</li>
 <li>AOP（面向切面编程）：代理模式</li>
@@ -600,6 +605,12 @@
             
                 <div class="toc-content-container">
                     
+   <div class="post-toc-wrap">
+       <div class="post-toc">
+           <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">开发步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE"><span class="nav-number">2.</span> <span class="nav-text">常用标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bean"><span class="nav-number">2.1.</span> <span class="nav-text">bean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias"><span class="nav-number">2.2.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import"><span class="nav-number">2.3.</span> <span class="nav-text">import</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">创建顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">创建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">通过构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Setter-%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">通过 Setter 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="nav-number">4.3.</span> <span class="nav-text">依赖注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">命名空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">5.1.</span> <span class="nav-text">c 命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">5.2.</span> <span class="nav-text">p 命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">6.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">7.</span> <span class="nav-text">懒加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90"><span class="nav-number">8.</span> <span class="nav-text">读取外部资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">工厂方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E8%BD%BD"><span class="nav-number">10.</span> <span class="nav-text">自动装载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91"><span class="nav-number">11.</span> <span class="nav-text">基于注解开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA"><span class="nav-number">11.1.</span> <span class="nav-text">手动创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%89%AB%E6%8F%8F"><span class="nav-number">11.2.</span> <span class="nav-text">自动扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration"><span class="nav-number">11.3.</span> <span class="nav-text">@Configuration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IoC"><span class="nav-number">12.</span> <span class="nav-text">IoC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E6%83%B3"><span class="nav-number">12.1.</span> <span class="nav-text">思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">12.2.</span> <span class="nav-text">实现原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP"><span class="nav-number">13.</span> <span class="nav-text">AOP</span></a></li></ol>
+       </div>
+   </div>
+
                 </div>
             
         </div>
