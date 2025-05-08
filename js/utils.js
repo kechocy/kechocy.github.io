@@ -343,7 +343,60 @@ KEEP.initUtils = () => {
         }, 200);
 
       }, 200);
-    }
+    },
+
+     // custom tabs tag active handle
+     tabsActiveAndScrollHandle() {
+       // tab 激活处理
+      const activeHandle = (tabList, paneList, nowTab) => {
+        tabList.forEach((tab) => {
+          if (tab.dataset.href === nowTab.dataset.href) {
+            tab.classList.add('active')
+          } else {
+            tab.classList.remove('active')
+          }
+        })
+
+        paneList.forEach((pane) => {
+          if (pane.id === nowTab.dataset.href) {
+            pane.classList.add('active')
+          } else {
+            pane.classList.remove('active')
+          }
+        })
+      }
+      // tab 滚动处理（点击半露 tab 时自动滚动以显示全貌）
+      const scrollHandle = (wrapper, tab) => {
+        const wrapperRect = wrapper.getBoundingClientRect()
+        const tabRect = tab.getBoundingClientRect()
+        const isHiddenLeft = tabRect.left < wrapperRect.left
+        const isHiddenRight = tabRect.right > wrapperRect.right
+        if(isHiddenLeft) {
+          wrapper.scrollBy({
+            left: tabRect.left - wrapperRect.left - 10,
+            behavior: 'smooth',
+          }) 
+        } else if (isHiddenRight) {
+          wrapper.scrollBy({
+            left: tabRect.right - wrapperRect.right + 10,
+            behavior: 'smooth',
+          })
+        }
+      }
+
+      const keepTabsList = document.querySelectorAll('.keep-tabs')
+      keepTabsList.length && keepTabsList.forEach((keepTabs) => {
+          const tabWrapper = keepTabs.querySelector('.tabs-wrapper')
+          const tabList = keepTabs.querySelectorAll('.tabs-nav .tab')
+          const tabPaneList = keepTabs.querySelectorAll('.tabs-content .tab-pane')
+          tabList.forEach((tab) => {
+            tab.addEventListener('click', () => {
+              activeHandle(tabList, tabPaneList, tab)
+              scrollHandle(tabWrapper, tab)
+            })
+          })
+        })
+    },
   }
 
   // init scroll
@@ -372,5 +425,8 @@ KEEP.initUtils = () => {
 
   // set how long age in home article block
   KEEP.utils.setHowLongAgoInHome();
+
+  // tabs active 
+  KEEP.utils.tabsActiveAndScrollHandle();
 
 }

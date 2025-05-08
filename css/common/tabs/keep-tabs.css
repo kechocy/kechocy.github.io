@@ -1,0 +1,84 @@
+.keep-tabs {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  background: var(--background-color);
+  border-radius: 0.4rem;
+  border: 1px var(--shadow-color) solid;
+}
+.keep-tabs .tabs-wrapper {
+  overflow-x: auto;
+}
+.keep-tabs .tabs-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+.keep-tabs .tabs-wrapper::-webkit-scrollbar-track {
+  background: var(--border-color);
+}
+.keep-tabs .tabs-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+.keep-tabs .tabs-wrapper::-webkit-scrollbar-thumb:hover {
+  cursor: grab;
+  border-radius: 4px;
+}
+.keep-tabs .tabs-wrapper .tabs-nav {
+  position: relative;
+  padding: 0 0.8rem;
+  display: inline-flex;
+  min-width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  list-style: none;
+}
+.keep-tabs .tabs-wrapper .tabs-nav::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 2px;
+  background: var(--border-color);
+  content: '';
+}
+.keep-tabs .tabs-wrapper .tabs-nav .tab {
+  position: relative;
+  box-sizing: border-box;
+  padding: 1rem 0.6rem;
+  color: var(--text-color-3);
+  cursor: pointer;
+}
+.keep-tabs .tabs-wrapper .tabs-nav .tab.active {
+  font-weight: 600;
+}
+.keep-tabs .tabs-wrapper .tabs-nav .tab.active::before {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  box-sizing: border-box;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  border-radius: 0.2rem;
+  transform: translateX(-50%);
+  content: '';
+}
+.keep-tabs .tabs-wrapper .tabs-nav .tab:not(:last-child) {
+  margin-right: 0.8rem;
+}
+.keep-tabs .tabs-content {
+  position: relative;
+  box-sizing: border-box;
+}
+.keep-tabs .tabs-content .tab-pane {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 10rem;
+  padding: 0.6rem 0.8rem;
+}
+.keep-tabs .tabs-content .tab-pane:not(.active) {
+  display: none;
+}

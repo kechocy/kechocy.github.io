@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kecho">
+    
+    <title>
+        
+            JavaScript 模块化规范的使用说明 |
+        
+        Kecho&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.svg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"kechocy.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"base_info":{"title":"Kecho's Blog","author":"kecho","url":"https://kechocy.github.io/","logo_img":"/images/logo_light.svg","dark_logo_img":"/images/logo_dark.svg"},"style":{"primary_color":"rgba(140, 51, 150, 1)","avatar":"/images/avatar.jpg","favicon":"/images/favicon.svg","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_img":null,"description":"Keep Writing and Keep Loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Kecho's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo_light.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                Kecho&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item rss">
+                            <a 
+                               href="/atom.xml"
+                               target="_blank"
+                            >
+                                <i class="fas fa-rss"></i>
+                            </a>
+                        </li>
+                    
+                    <li class="menu-item tool-dark-light-toggle">
+                        <i class="fas fa-moon"></i>
+                    </li>
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item">
+                        <a class=""
+                           href="/atom.xml"
+                           target="_blank"
+                        >
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+            <div class="main-content">
+
+                
+                            
+<div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation">JavaScript 模块化规范的使用说明</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">kecho</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span>更新于 2025-04-20</span>
+        <!-- <span class="pc">2025-04-20 16:35:13</span>
+        <span class="mobile">2025-04-20 16:35</span> -->
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ESMA6/">ESMA6</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CommonJS/">CommonJS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>本文介绍了常用的 JavaScript 模块化规范的使用说明，包含 ESMA6、CommonJS 等其它规范。</p>
+<span id="more"></span>
+
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13W42197jR/" >视频链接<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="ES6-模块规范"><a href="#ES6-模块规范" class="headerlink" title="ES6 模块规范"></a>ES6 模块规范</h2><p>ES6 模块规范主要用于客户端，也可用于服务端。</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>在 node.js 服务端有两种使用方式：</p>
+<ul>
+<li>将 <code>.js</code> 文件改为 <code>.mjs</code> 文件</li>
+<li>或者在 <code>package.json</code> 中添加定义 <code>&#39;type&#39;: &#39;module&#39;</code></li>
+</ul>
+<p>在浏览器端使用：</p>
+<ul>
+<li>在 html 文件中使用 <code>&lt;script type=&quot;module&quot; src=&quot;index.js&quot;&gt;&lt;/script&gt;</code> 引入</li>
+</ul>
+<blockquote>
+<p>直接在本地使用浏览器打开 html 文件，浏览器会报错，请启动 web 服务器后通过 <code>IP:端口</code> 访问网页</p>
+</blockquote>
+<h3 id="导出数据"><a href="#导出数据" class="headerlink" title="导出数据"></a>导出数据</h3><p>导出有三种方式：</p>
+<ul>
+<li>分别导出</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>统一导出</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; name, age, getTel &#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>默认导出</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// export default &#123;</span></span><br><span class="line"><span class="comment">//     name: name,</span></span><br><span class="line"><span class="comment">//     age: age,</span></span><br><span class="line"><span class="comment">//     getTel: getTel</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可省略书写</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; name, age, getTel &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>三种导出可以混用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; age &#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; getTel &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>会得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="title class_">Module</span>: <span class="literal">null</span> prototype] &#123;</span><br><span class="line">  <span class="attr">age</span>: <span class="string">&#x27;18&#x27;</span>,</span><br><span class="line">  <span class="attr">default</span>: &#123; <span class="attr">getTel</span>: [<span class="title class_">Function</span>: getTel] &#125;,</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;zhangsan&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h3><p>对于 ES6 模块化来说，使用何种导入方式要根据导出方式决定。</p>
+<ul>
+<li>全部导入（通用）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> student <span class="keyword">from</span> <span class="string">&#x27;./student.js&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>命名导入（对应：分别导出、统一导出）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; name <span class="keyword">as</span> newName, age, getTel &#125; <span class="keyword">from</span> <span class="string">&#x27;./student.js&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>默认导入（对应：默认导出）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> student <span class="keyword">from</span> <span class="string">&#x27;./student.js&#x27;</span>;</span><br><span class="line"><span class="comment">// student 变量名可以自己取</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>默认导入和命名导入可以混用（当然不能和全部导入混用）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; age &#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; getTel &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> newFun, &#123; name, age &#125; frome <span class="string">&#x27;./student.js&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>直接导入不接收任何数据</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// log.js</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello world!&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./log.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入时 console.log() 会执行</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>动态导入（通用）</li>
+</ul>
+<p>导入还可以根据事件来进行动态导入，下面的例子将演示当点击按钮时才导入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; name, age, getTel &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>);</span><br><span class="line">btn.<span class="property">onclick</span> = <span class="title function_">async</span>() =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">import</span>(<span class="string">&#x27;./student.js&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="CommonJS-规范"><a href="#CommonJS-规范" class="headerlink" title="CommonJS 规范"></a>CommonJS 规范</h2><p>CommonJS 规范主要用于服务端，如果想要在浏览器端使用，可以通过 <a class="link"   target="_blank" rel="noopener" href="https://browserify.org/" >browserify<i class="fas fa-external-link-alt"></i></a> 将原本的 js 文件进行翻译，再将翻译后的文件在 html 中引用。</p>
+<h3 id="导出数据-1"><a href="#导出数据-1" class="headerlink" title="导出数据"></a>导出数据</h3><p>在 CommonJS 规范中有两种导出方式，导出的是一个普通对象，默认为 <code>&#123;&#125;</code>。</p>
+<p>通过 <code>exports</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">name</span> = name;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">age</span> = age;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">getTel</span> = getTel;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当然也可以使用 module.exports.name = name 只是书写更麻烦;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>module.exports</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// module.exports = &#123;</span></span><br><span class="line"><span class="comment">//     name: name,</span></span><br><span class="line"><span class="comment">//     age: age,</span></span><br><span class="line"><span class="comment">//     getTel: getTel</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可省略书写</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; name, age, getTel &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="导入数据-1"><a href="#导入数据-1" class="headerlink" title="导入数据"></a>导入数据</h3><p>导入时会执行被导入文件中的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> student = <span class="built_in">require</span>(<span class="string">&#x27;./student.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 会输出：</span></span><br><span class="line"><span class="comment">// hello</span></span><br><span class="line"><span class="comment">// &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>导入时也能通过解构赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">name</span>: newName, age, getTel &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./student.js&#x27;</span>); <span class="comment">// 解构导入并重命名</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>注意点如下：</p>
+<ol>
+<li>每个模块内部的：<code>this</code>、<code>exports</code>、<code>module.exports</code> 在初始时都指向同一个空对象。<code>console.log(this===exports &amp;&amp; exports === module.exports); // true</code></li>
+<li>无论如何修改导出对象，最终导出的都是 <code>module.exports</code> 的值</li>
+<li><code>exports</code> 是对 <code>module.exports</code> 的初始引用，仅为了方便给导出对象添加属性，所以不能使用 <code>exports = value</code> 的形式导出数据，可以使用 <code>exports.value = value</code> 、<code>module.exports = value</code> 导出数据。</li>
+</ol>
+<p>思考以下代码在导入时获取到的数据是什么？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span> = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">c</span> = <span class="number">3</span>;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; <span class="attr">d</span>: <span class="number">4</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> student = <span class="built_in">require</span>(<span class="string">&#x27;./student.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(student);</span><br><span class="line"><span class="comment">// 输出：&#123; d: 4 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<ol>
+<li><code>exports </code>-&gt; <code>&#123;&#125;</code> &lt;- <code>module.exports</code></li>
+<li><code>exports</code> -&gt; <code>&#123; a: 1 &#125;</code> ；<code>module.exports</code> -&gt; <code>&#123;&#125;</code></li>
+<li><code>exports</code> -&gt; <code>&#123; a: 1, b: 2 &#125;</code>；<code>module.exports</code> -&gt; <code>&#123;&#125;</code></li>
+<li><code>exports</code> -&gt; <code>&#123; a: 1, b: 2 &#125;</code>；<code>module.exports</code> -&gt; <code>&#123; c: 3 &#125;</code></li>
+<li><code>exports</code> -&gt; <code>&#123; a: 1, b: 2 &#125;</code>；没有东西指向 <code>&#123; c: 3 &#125; </code>；<code>module.exports</code> -&gt; <code>&#123; d: 4 &#125;</code></li>
+</ol>
+<h2 id="模块化的好处"><a href="#模块化的好处" class="headerlink" title="模块化的好处"></a>模块化的好处</h2><p>模块化能够有效解决：</p>
+<ul>
+<li>全局污染问题</li>
+<li>数据安全问题</li>
+<li>依赖混乱问题</li>
+</ul>
+<p>1、全局污染、数据安全问题</p>
+<p>在使用模块化以前：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;student.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时在浏览器控制台是能够获取到 <code>name</code>、<code>age</code> 等变量的，并且如果引入的多个文件有相同的变量名会产生冲突。</p>
+<p>使用模块化以后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// student.js</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;zhangsan&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTel</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;13333333333&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getSubject</span> ()&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;C++&#x27;</span>, <span class="string">&#x27;高等数学&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; name, age, getTel &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> student <span class="keyword">from</span> <span class="string">&#x27;./student.js&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时在浏览器控制台是无法获取到 <code>student.name</code> 变量的，而且在导入模块时能够对冲突的变量重命名，解决了数据安全、全局污染问题。</p>
+<p>2、依赖混乱问题</p>
+<p>在使用模块化以前，直接在 html 文件中引入 js 的顺序至关重要，尤其是需要引入多个 js 文件时，特别需要关注他们的依赖关系来确定引入顺序，十分麻烦。使用模块化后，可以在各个 js 文件中显式导入需要使用到的模块，而不用关心 html 文件中引入 js 的顺序。</p>
+<h2 id="数据引入问题"><a href="#数据引入问题" class="headerlink" title="数据引入问题"></a>数据引入问题</h2><p>思考同一代码在 CommonJS 规范和 ES6 规范的执行结果：</p>
+<ul>
+<li>CommonJS 规范</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data.js</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    sum += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; sum, increment &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; sum, increment &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./data.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br><span class="line"><span class="title function_">increment</span>();</span><br><span class="line"><span class="title function_">increment</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>1<br>data: 2<br>data: 3<br>1</p>
+</blockquote>
+<ul>
+<li>ES6 规范</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data.js</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    sum += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; sum, increment &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; sum, increment &#125; <span class="keyword">from</span> <span class="string">&#x27;./data.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br><span class="line"><span class="title function_">increment</span>();</span><br><span class="line"><span class="title function_">increment</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>1<br>data: 2<br>data: 3<br>3</p>
+</blockquote>
+<p>对比两者发现，ES6 规范中执行完函数后的 <code>sum</code> 的值不一样了，是因为 <code>index.js</code> 和 <code>data.js</code> 中的 <code>sum</code> 是同一片内存空间（在 CommonJS 规范中导入是将值进行了复制），为了避免这种情况应该在 <code>data.js</code> 中声明常量而不是变量，即改为 <code>const sum = 1</code>。</p>
+<h2 id="其它规范"><a href="#其它规范" class="headerlink" title="其它规范"></a>其它规范</h2><p>AMD 规范在这里：[<a class="link"   target="_blank" rel="noopener" href="https://github.com/amdjs/amdjs-api/wiki/AMD]" >https://github.com/amdjs/amdjs-api/wiki/AMD]<i class="fas fa-external-link-alt"></i></a></p>
+<p>CMD 规范在这里：[<a class="link"   target="_blank" rel="noopener" href="https://github.com/seajs/seajs/issues/242]" >https://github.com/seajs/seajs/issues/242]<i class="fas fa-external-link-alt"></i></a></p>
+<p>AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。</p>
+<p>CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ESMA6/">#ESMA6</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/CommonJS/">#CommonJS</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/posts/d0f4f654.html"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                <i class="fas fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">常用编程语言基础语法对比</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/posts/f00bce88.html"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Spring Boot 参数校验</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                <i class="fas fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+    </div>
+</div>
+
+
+                
+            </div>
+            
+                <div class="toc-content-container">
+                    
+   <div class="post-toc-wrap">
+       <div class="post-toc">
+           <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">ES6 模块规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">导出数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.</span> <span class="nav-text">导入数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJS-%E8%A7%84%E8%8C%83"><span class="nav-number">2.</span> <span class="nav-text">CommonJS 规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE-1"><span class="nav-number">2.1.</span> <span class="nav-text">导出数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE-1"><span class="nav-number">2.2.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">3.</span> <span class="nav-text">模块化的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BC%95%E5%85%A5%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">数据引入问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E8%A7%84%E8%8C%83"><span class="nav-number">5.</span> <span class="nav-text">其它规范</span></a></li></ol>
+       </div>
+   </div>
+
+                </div>
+            
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kecho</a>
+        </div>
+        
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+    <!-- 文章页右侧按钮-->
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item toggle-show-toc">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+        <li class="tool-scroll-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toggle-show-toc.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+<script>
+    const pushLink ="https://api.day.app/";
+    const key = "WJuMbq4XeNYVeawyRdzdeM";
+    const siteName = "Kecho's Blog";
+    const valineButton=document.getElementsByClassName("vsubmit vbtn")[0];
+    const title = siteName + "上有新评论";
+  
+    function send_valine() {
+        //获取元素信息
+        const pagename = document.title.match(/(.*)( \| Kecho's Blog)/)[1];
+        const vnick = document.getElementsByClassName("vnick vinput")[0].value;
+        const status = document.getElementsByClassName("vcol vcol-60 status-bar")[0].innerText;
+        const veditor = document.getElementsByClassName("veditor vinput")[0].value;
+        const icon = "https://blog.kecho.top/images/logo_light.jpg"
+        console.log(icon)
+        if(veditor !== "" && !status.includes("操作频繁") && vnick !== "kecho"){
+            var body ="【" + vnick + "】在【"+ pagename +"】中说到：\n【" + veditor + "】";
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open("GET",pushLink + key + "/" + title + "/" + encodeURIComponent(body) + "?isArchive=1&icon=" + icon,true);
+            httpRequest.send();
+        }
+    }
+  
+    document.body.addEventListener('click', function(e) {
+        if(e.target.className.indexOf('vsubmit') === -1) {
+            return;
+        }
+        send_valine();
+  })
+  </script>
+
+</body>
+</html>
