@@ -9,7 +9,7 @@
     
     <title>
         
-            标签: Linux |
+            Windows 本地部署 DeepSeek 大模型 |
         
         Kecho&#39;s Blog
     </title>
@@ -95,7 +95,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/tags"
                             >
                                 标签
@@ -162,7 +162,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/tags">标签</a>
                 </li>
             
@@ -180,49 +180,166 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="tag-container">
-        <div class="tag-name"><i class="fas fa-tag"></i>&nbsp;Linux
-        </div>
-        <div class="tag-post-list">
-            
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2025</span>
-                <span class="archive-year-post-count">[1]</span>
+                            
+<div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation">Windows 本地部署 DeepSeek 大模型</span>
             </div>
-            <ul class="article-list">
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">kecho</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span>更新于 2025-07-18</span>
+        <!-- <span class="pc">2025-07-18 11:03:04</span>
+        <span class="mobile">2025-07-18 11:03</span> -->
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/posts/f7465fc9.html"
-                        >Debian 服务器配置备忘</a>
-                        <span class="article-date">07-04</span>
+                    <li>
+                        <a href="/categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/">折腾记录</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Windows/">Windows</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/DeepSeek/">DeepSeek</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AI/">AI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+        </span>
+    
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>本文介绍如何通过 Ollama 部署 DeepSeek-R1 蒸馏版。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="1-安装-DeepSeek"><a href="#1-安装-DeepSeek" class="headerlink" title="1. 安装 DeepSeek"></a>1. 安装 DeepSeek</h2><p>去官网下载 <a class="link"   target="_blank" rel="noopener" href="https://ollama.com/download" >Ollama 安装程序<i class="fas fa-external-link-alt"></i></a>，使用 <code>OllamaSetup.exe /DIR=D:\Software\Ollama</code> 可指定安装路径。</p>
+<p>Ollama 安装后执行 <code>ollama run deepseek-r1:14b</code> 即可运行 DeepSeek-R1-Distill-Qwen-14B，可以替换数字以安装不同数据集大小的模型，更多信息见 <a class="link"   target="_blank" rel="noopener" href="https://ollama.com/library/deepseek-r1" >Ollama DeepSeek-R1<i class="fas fa-external-link-alt"></i></a>。</p>
+<h2 id="2-安装-open-webui"><a href="#2-安装-open-webui" class="headerlink" title="2. 安装 open-webui"></a>2. 安装 open-webui</h2><p>运行成功后默认是通过命令行进行交互，可以利用安装 open-webui 提供网页交互入口，此处使用 pip 安装（依赖 python 3.11 ）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需已安装 python 3.11</span></span><br><span class="line">pip install open-webui</span><br><span class="line">open-webui serve</span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用 docker 安装，更多信息详见 <a class="link"   target="_blank" rel="noopener" href="https://docs.openwebui.com/" >Open WebUI 文档<i class="fas fa-external-link-alt"></i></a>。</p>
+<h2 id="3-参考文章"><a href="#3-参考文章" class="headerlink" title="3. 参考文章"></a>3. 参考文章</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://ollama.com/library/deepseek-r1" >Ollama Deepseek-R1<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.openwebui.com/" >Open WebUI 文档<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Windows/">#Windows</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/DeepSeek/">#DeepSeek</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">#大模型</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/AI/">#AI</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/posts/e36ef7eb.html"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Windows 注册表备忘</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                <i class="fas fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
         </div>
-    </div>
-
-    <div class="tag-paginator">
-        <div class="paginator">
-    
-
-    
-</div>
-
     </div>
 </div>
 
 
                 
             </div>
+            
+                <div class="toc-content-container">
+                    
+   <div class="post-toc-wrap">
+       <div class="post-toc">
+           <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-DeepSeek"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 DeepSeek</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85-open-webui"><span class="nav-number">2.</span> <span class="nav-text">2. 安装 open-webui</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">3. 参考文章</span></a></li></ol>
+       </div>
+   </div>
+
+                </div>
             
         </div>
 
@@ -246,6 +363,26 @@
         </div>
     </div>
     <!-- 文章页右侧按钮-->
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item toggle-show-toc">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+        <li class="tool-scroll-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="image-viewer-container">
@@ -319,6 +456,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/toggle-show-toc.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 
