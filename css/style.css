@@ -2010,6 +2010,11 @@ pre .javascript .function {
 }
 .archive-list-container .archive-item .article-list .article-item a.article-title {
   color: var(--default-text-color);
+  display: inline-block;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .archive-list-container .archive-item .article-list .article-item .article-date {
   font-size: 1rem;
