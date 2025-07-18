@@ -239,7 +239,7 @@
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>7 分钟</span>
         </span>
     
     
@@ -253,21 +253,79 @@
             <div class="article-content markdown-body">
                 <p>记录个人 Debian 服务器的配置过程。</p>
 <span id="more"></span>
-<h2 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h2><p><a class="link"   target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/" >debian | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h3><p><a class="link"   target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/" >debian | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror<i class="fas fa-external-link-alt"></i></a></p>
 <p>编辑配置文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo - root</span><br><span class="line">vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 
 <p>替换为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware</span><br><span class="line"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware</span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span><br><span class="line"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span><br><span class="line"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware</span><br><span class="line"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware</span><br></pre></td></tr></table></figure>
 
+<p>其中 main contrib non-free non-free-firmware 表示不同类型的软件包。</p>
+<ul>
+<li>main 表示符合 <a class="link"   target="_blank" rel="noopener" href="https://www.debian.org/doc/manuals/debian-handbook/sect.foundation-documents.zh-cn.html#sect.dfsg" >Debian Free Software Guidelines<i class="fas fa-external-link-alt"></i></a> 的包；</li>
+<li>contrib 是依赖一些非自由软件就才能正常运作的开源软件；</li>
+<li>non-free 和 non-free-firmware 表示非自由软件。</li>
+</ul>
+<blockquote>
+<p>上述这种格式称为传统格式（又称 One-Line-Style 格式）。</p>
+<p>新的 DEB822 格式自 APT 1.1（2015 年发布）起支持，文件后缀为 <code>.sources</code>，存储在 <code>/etc/apt/sources.list.d/</code> 目录下，格式类似如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Types: deb deb-src</span><br><span class="line">URIs: https://mirrors.tuna.tsinghua.edu.cn/debian</span><br><span class="line">Suites: bookworm bookworm-updates bookworm-backports</span><br><span class="line">Components: main contrib non-free non-free-firmware</span><br><span class="line">Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg</span><br><span class="line"></span><br><span class="line">Types: deb deb-src</span><br><span class="line">URIs: http://security.debian.org/debian-security</span><br><span class="line">Suites: bookworm-security</span><br><span class="line">Components: main</span><br><span class="line">Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg</span><br></pre></td></tr></table></figure>
+</blockquote>
 <p>安装常用工具：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install vim git wget curl</span><br></pre></td></tr></table></figure>
 
+<p>常用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apt update    <span class="comment"># 更新软件索引</span></span><br><span class="line">apt upgrade  <span class="comment"># 更新系统中的所有软件包，但不安装额外的软件包或卸载软件包</span></span><br><span class="line">apt full-upgrade <span class="comment"># 更新系统中的所有软件包，并且在必要的时候安装额外的软件包或卸载软件包</span></span><br><span class="line">apt install foo   <span class="comment"># 安装软件包 foo 和它的全部依赖</span></span><br><span class="line">apt remove foo  <span class="comment"># 卸载软件包 foo</span></span><br><span class="line">apt purge foo    <span class="comment"># 卸载软件包 foo 和它的配置文件</span></span><br><span class="line">apt list --upgradable  <span class="comment"># 列出所有可以更新到新版本的软件包</span></span><br><span class="line"></span><br><span class="line">apt search foo  <span class="comment"># 找出描述中包含 foo 的软件包</span></span><br><span class="line">apt show foo    <span class="comment"># 打印软件包的详细信息</span></span><br><span class="line">apt-cache depends foo    <span class="comment"># 打印软件包的依赖</span></span><br><span class="line">apt-cache showpkg foo   <span class="comment"># 打印软件包各可用版本的详细信息，以及反向依赖它的软件包</span></span><br></pre></td></tr></table></figure>
 
-
+<h3 id="dpkg"><a href="#dpkg" class="headerlink" title="dpkg"></a>dpkg</h3><p>除了使用 apt 软件管理工具安装软件外，还可以直接使用 dpkg 命令本地安装 deb 软件包</p>
 <p>deb 包安装与卸载：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i hello.deb       <span class="comment"># 安装</span></span><br><span class="line">sudo dpkg -l | grep <span class="string">&quot;hello&quot;</span>  <span class="comment"># 查询已安装包</span></span><br><span class="line">sudo dpkg -r hello           <span class="comment"># 卸载</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i hello.deb       <span class="comment"># 安装</span></span><br><span class="line">dpkg -r hello.deb       <span class="comment"># 保留配置文件卸载</span></span><br><span class="line">dpkg -P hello.deb       <span class="comment"># 清除配置文件卸载</span></span><br><span class="line"></span><br><span class="line">dpkg -l                 <span class="comment"># 显示已安装程序列表</span></span><br><span class="line">dpkg -l | grep <span class="string">&quot;hello&quot;</span>  <span class="comment"># 查询已安装包</span></span><br><span class="line">dpkg -l | grep ^rc      <span class="comment"># 查看处于 rc 状态的软件包</span></span><br></pre></td></tr></table></figure>
+<p><code>dpkg -l</code> 显示已安装程序列表，其中每行输出的第一列 <code>ii</code> 表示软件包的安装和配置状态，其格式如下：<code>期望状态|当前状态|错误</code> 。</p>
+<p>期望状态有以下几种：</p>
+<ul>
+<li>u：即 unknown，软件包未安装且用户未请求安装</li>
+<li>i：即 install，用户请求安装该软件包</li>
+<li>r：即 remove，用户请求卸载该软件包</li>
+<li>p：即 purge，用户请求卸载该软件包并清理配置文件</li>
+<li>h：即 hold，用户请求保持续当前软件包版本</li>
+</ul>
+<p>当前状态有以下几种：</p>
+<ul>
+<li>n：即 not-installed，软件包未安装</li>
+<li>i：即 installed，软件包已安装并完成配置</li>
+<li>c：即 config-files，软件包已经被卸载，但是其配置文件未清理</li>
+<li>u：即 unpacked，软件包已经被解压缩，但还未配置</li>
+<li>f：即 half-configured，配置软件包时出现错误</li>
+<li>w：即 triggers-awaited，触发器等待</li>
+<li>t：即 triggers-pending，触发器未决</li>
+</ul>
+<p>错误状态有以下几种：</p>
+<ul>
+<li>h：软件包被强制保持</li>
+<li>r：即 reinstall-required，需要卸载并重新安装</li>
+<li>x：软件包被破坏</li>
+</ul>
+<p>因此 <code>ii</code> 表示该软件需要安装且已经安装，没有出现错误；<code>iu</code> 表示已经安装该软件，但未正确配置；<code>rc</code> 表示该软件已经被删除，但配置文件未清理。</p>
+<p>一个 deb 包的目录结构如下：</p>
+<ul>
+<li>my.deb<ul>
+<li>DEBIAN<ul>
+<li>control （存放软件包的作者、版本、描述等信息）</li>
+<li>preinst （安装前执行的脚本）</li>
+<li>postinst （安装后执行的脚本）</li>
+<li>prerm （卸载前执行的脚本）</li>
+<li>postrm （卸载后执行的脚本）</li>
+</ul>
+</li>
+<li>usr （存放源码）<ul>
+<li>xxxxxx</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>可以使用以下命令对 deb 包进行解压和打包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dpkg -x my.deb build  <span class="comment"># 解压源码</span></span><br><span class="line">dpkg -e my.deb build  <span class="comment"># 解压其中的 DEBIAN 内容</span></span><br><span class="line">dpkg -b build my.deb  <span class="comment"># 重新打包为 deb</span></span><br></pre></td></tr></table></figure>
 
 
 <h2 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h2><p>安装：</p>
@@ -417,7 +475,7 @@
                     
    <div class="post-toc-wrap">
        <div class="post-toc">
-           <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#apt"><span class="nav-number">1.</span> <span class="nav-text">apt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sudo"><span class="nav-number">2.</span> <span class="nav-text">sudo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">3.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ip-%E5%9B%BA%E5%AE%9A"><span class="nav-number">4.</span> <span class="nav-text">ip 固定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#smb"><span class="nav-number">5.</span> <span class="nav-text">smb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crontab"><span class="nav-number">6.</span> <span class="nav-text">crontab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">编写服务</span></a></li></ol>
+           <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apt"><span class="nav-number">1.1.</span> <span class="nav-text">apt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dpkg"><span class="nav-number">1.2.</span> <span class="nav-text">dpkg</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sudo"><span class="nav-number">2.</span> <span class="nav-text">sudo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">3.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ip-%E5%9B%BA%E5%AE%9A"><span class="nav-number">4.</span> <span class="nav-text">ip 固定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#smb"><span class="nav-number">5.</span> <span class="nav-text">smb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crontab"><span class="nav-number">6.</span> <span class="nav-text">crontab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">编写服务</span></a></li></ol>
        </div>
    </div>
 
