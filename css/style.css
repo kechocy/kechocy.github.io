@@ -581,6 +581,9 @@ button {
 .markdown-body > table tr:nth-child(2n) {
   background-color: var(--second-background-color);
 }
+mjx-container[jax="SVG"] svg {
+  max-width: 100%;
+}
 :root {
   --background-color: #fff;
   --second-background-color: #f7f7f7;
@@ -2399,10 +2402,17 @@ pre .javascript .function {
   justify-content: space-between;
   align-items: center;
   font-size: 0.92rem;
+  gap: 10px;
   color: var(--third-text-color);
+}
+.home-content-container .home-article-list .home-article-item .home-article-meta-info-container > a {
+  white-space: nowrap;
 }
 .home-content-container .home-article-list .home-article-item .home-article-meta-info-container .home-article-meta-info {
   letter-spacing: 0.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 /*.home-article-category {
             +keep-mobile() {
               display: none;

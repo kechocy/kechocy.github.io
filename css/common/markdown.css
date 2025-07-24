@@ -186,3 +186,6 @@ keep-tablet()
 .markdown-body > table tr:nth-child(2n) {
   background-color: var(--second-background-color);
 }
+mjx-container[jax="SVG"] svg {
+  max-width: 100%;
+}
