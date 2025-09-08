@@ -1448,7 +1448,7 @@ pre,
 }
 pre,
 code {
-  font-family: "Source Code Pro", consolas, Menlo;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas;
 }
 code {
   box-sizing: border-box;
@@ -1624,7 +1624,7 @@ pre .javascript .function {
 }
 .highlight-container.mac {
   margin: 1.4rem 0 1.8rem 0;
-  box-shadow: 0 0.8rem 2rem 0 rgba(0,0,0,0.4);
+  box-shadow: 0 0.8rem 2rem 0 rgba(0,0,0,0.2);
 }
 .highlight-container.mac:hover .code-tools-box .copy {
   opacity: 1;
@@ -1700,7 +1700,7 @@ pre .javascript .function {
   margin-left: 0.2rem;
   font-weight: 600;
   font-size: 0.9rem;
-  font-family: "Source Code Pro", consolas, Menlo;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas;
   color: var(--text-color-3);
 }
 .highlight-container .code-tools-box .tool {
@@ -2770,7 +2770,7 @@ figure.highlight .shrink-line:hover::before {
   cursor: pointer;
 }
 .header-wrapper .header-content .right .pc .menu-list .menu-item.search {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .header-wrapper .header-content .right .pc .menu-list .menu-item.search::before {
   display: none !important;

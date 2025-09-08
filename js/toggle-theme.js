@@ -8,6 +8,9 @@ KEEP.initModeToggle = () => {
     enableLightMode() {
       document.documentElement.classList.remove('dark-mode')
       document.documentElement.classList.add('light-mode')
+      if (document.querySelector(".logo-image img") && KEEP.theme_config.base_info.logo){
+        document.querySelector(".logo-image img").setAttribute("src",KEEP.theme_config.base_info.logo);
+      }
       this.iconDom && (this.iconDom.className = 'fas fa-moon')
       KEEP.themeInfo.styleStatus.isDark = false
       KEEP.setStyleStatus()
@@ -16,6 +19,9 @@ KEEP.initModeToggle = () => {
     enableDarkMode() {
       document.documentElement.classList.add('dark-mode')
       document.documentElement.classList.remove('light-mode')
+            if (document.querySelector(".logo-image img") && KEEP.theme_config.base_info.logo_dark){
+        document.querySelector(".logo-image img").setAttribute("src",KEEP.theme_config.base_info.logo_dark);
+      }
       this.iconDom && (this.iconDom.className = 'fas fa-sun')
       KEEP.themeInfo.styleStatus.isDark = true
       KEEP.setStyleStatus()

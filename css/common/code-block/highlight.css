@@ -140,7 +140,7 @@ pre,
 }
 pre,
 code {
-  font-family: "Source Code Pro", consolas, Menlo;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas;
 }
 code {
   box-sizing: border-box;
