@@ -1,11 +1,1 @@
-/* 避免行间公式过长 */
-mjx-container[display="true"] {
-    display: block !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100% !important;
-}
-mjx-container[display="true"] > svg {
-    max-width: 100% !important;
-    height: auto !important;
-}
+mjx-container[display=true]{display:block!important;overflow-x:auto;overflow-y:hidden;width:100%!important}mjx-container[display=true]>svg{max-width:100%!important;height:auto!important}
